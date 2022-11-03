@@ -1,8 +1,14 @@
+<#
+.SYNOPSIS 
+Sample of using ExchangeOnlineManagement v2 Module with Managed Identity via PSSession.
+If possible switch to ExchangeOnlineManagement v3.
+#>
+
 #Requires -Modules ExchangeOnlineManagement
 
 ## This scenario would need to get the OrgId when called.
 param(
-    $tenantId = "bc753e18-c1f6-4f62-84cb-cbef347d3ba8"
+    $tenantId = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx"
 )
 
 ## Auth (directly calling auth endpoint)
@@ -11,7 +17,6 @@ $authUri = $env:IDENTITY_ENDPOINT
 $headers = @{'X-IDENTITY-HEADER' = "$env:IDENTITY_HEADER"}
 
 $AuthResponse = Invoke-WebRequest -UseBasicParsing -Uri "$($authUri)?resource=$($resourceURL)" -Method 'GET' -Headers $headers
-
 $accessToken = ($AuthResponse.content | ConvertFrom-Json).access_token
 
 ## Immitate a user logging in

@@ -1,4 +1,7 @@
-#Requires -modules Microsoft.Graph.Authentication,Microsoft.Graph.Identity.DirectoryManagement
+<#
+.SYNOPSIS
+Use Rest-calls to create an auth. header for MS Graph API access. 
+#>
 
 ## Auth (directly calling auth endpoint)
 $resourceURL = "https://graph.microsoft.com/" 
@@ -6,12 +9,12 @@ $authUri = $env:IDENTITY_ENDPOINT
 $headers = @{'X-IDENTITY-HEADER' = "$env:IDENTITY_HEADER"}
 
 $AuthResponse = Invoke-WebRequest -UseBasicParsing -Uri "$($authUri)?resource=$($resourceURL)" -Method 'GET' -Headers $headers
-
 $accessToken = ($AuthResponse.content | ConvertFrom-Json).access_token
 
-#Connect to the Microsoft Graph using the aquired AccessToken
-$VerbosePreference = "SilentlyContinue"
-Connect-MgGraph -AccessToken $accessToken
+$authHeader = @{
+    'Content-Type'  = 'application/json'
+    'Authorization' = "Bearer " + $accessToken
+}
 
 ## Workload Demo
-Get-MgDirectoryRole
+(Invoke-RestMethod -Method Get -Uri "https://graph.microsoft.com/v1.0/groups" -Headers $authHeader).Value

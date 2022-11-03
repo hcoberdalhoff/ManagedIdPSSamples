@@ -1,3 +1,10 @@
+<#
+.SYNOPSIS 
+Sample of using ExchangeOnlineManagement v2 Module with Managed Identity via PSSession.
+This sample uses the Az module to create the token and fetch the tenant id in one going.
+If possible switch to ExchangeOnlineManagement v3.
+#>
+
 #Requires -Modules Az.Accounts,ExchangeOnlineManagement
 
 ## Auth using Az.Accounts
