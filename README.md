@@ -1,5 +1,5 @@
 # ManagedIdPSSamples
-Samples on how to use sys. assigned Managed Identities from PowerShell for different workloads
+Samples on how to use System Assigned Managed Identities from PowerShell for different workloads.
 
 Demos are sorted by API / PowerShell module in folders. Every folder contains one or more samples. The samples follow the following naming scheme:
 - `Az_` - This sample will use the Az PowerShell modules to create an access token.
